@@ -1,12 +1,14 @@
 Djangoappengine, a Django database backend for App Engine
 =========================================================
-#This version:
+This version:
+------------
 
 - merged devappserver2 branch with master (from commit: 5c4ef57)
 - added cloud_storage storages.py commits to support Google Cloud Storage (from commit: 4ba8342)
 - tbd
 
-#Original:
+Original:
+------------
 
 Documentation at http://djangoappengine.readthedocs.org/
 
