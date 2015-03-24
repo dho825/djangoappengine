@@ -42,7 +42,16 @@ class StubManager(object):
             from google.appengine.tools import dev_appserver_main
             self.setup_local_stubs(connection)
         except ImportError:
-            self.activate_test_stubs(connection)
+            # patch: https://github.com/django-nonrel/djangoappengine/issues/97
+            import sys
+            command_line_args = sys.argv
+            is_local_shell = 'shell' in command_line_args and 'remote' not in command_line_args
+            # datastore_path = connection.settings_dict.get('datastore_path', None) if is_local_shell else None
+            # modification
+            from ..boot import DATA_ROOT
+            datastore_path = os.path.join(DATA_ROOT, 'datastore')
+            # endpatch
+            self.activate_test_stubs(connection, datastore_path)
 
     def reset_stubs(self, connection, datastore_path=None):
         if self.active_stubs == 'test':
